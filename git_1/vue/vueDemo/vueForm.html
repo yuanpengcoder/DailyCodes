@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <!-- 实现一个form表单 -->
+    <form action="" id="myform" method="GET" > 
+        <!-- @submit.prevent="sub"，设置提交时执行的函数，并阻止页面跳转 -->
+        <p>{{welMsg}} </p>
+        <input type="text" v-model.lazy="nameMsg" placeholder="姓名"><br/>
+        年龄<input v-model.number="numMsg" type="number"><br/>
+        昵称<input v-model.trim="filMsg" type="text"><br/>    
+        <!-- 自动过滤用户输入的首尾空白字符 -->
+        爱好 <input type="checkbox" id="sp1" value="basketball" v-model="checkNames">
+        篮球
+        <input type="checkbox" id="sp2" value="football" v-model="checkNames">
+         足球   
+         <input type="checkbox" id="sp3" value="run" v-model="checkNames">
+         跑步   
+         <br/>
+          性别 <input type="radio" id="man" value="man" v-model="sex">
+         <label for="sex">男{{sex}}</label>
+         <input type="radio" id="women" value="women" v-model="sex">
+         <label for="sex">女{{sex}}</label>
+         <br>
+         技能 
+        <select id="skills" v-model="skills" >
+                <option disabled value="">请选择</option>
+                <!-- 单选 -->
+                <option>c++</option>
+                <option>js</option>
+                <option>java</option>
+         </select>
+         <br>
+         荣誉
+         <select id="honor" v-model="honor" multiple>
+                <option disabled value="">请选择</option>
+                <!-- 单选 -->
+                <option>c++一等奖</option>
+                <option>js创新二等</option>
+                <option>java创新奖</option>
+         </select>
+        成绩
+        <select v-model="gpa">
+                <option disabled value="">请选择</option>
+                <!-- 单选 -->
+                <option v-for="option in options" v-bind:value="option">
+                    {{option}}
+                </option>
+         </select><br>
+         <button @click='sub($event)' >提交</button>
+    </form>
+    <div id="formPerson"></div>
+    <script>
+        var vm=new Vue({
+            el:"form",
+            data:{
+                welMsg:"请开始注册吧",
+                nameMsg:"",
+                checkNames:[],
+                sex:[],
+                skills:[],
+                honor:[],
+                gpa:[],
+                options:[
+                    4.0,3.0,2.0
+                ],
+                numMsg:'',
+                filMsg:'',
+            },
+            methods:{
+                sub(e){
+                    e.preventDefault();
+
+                  $("#formPerson").html("欢迎你，注册成功"+this.nameMsg);  
+
+                    
+                    // console.log($("#myform").serialize());
+                    
+
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
