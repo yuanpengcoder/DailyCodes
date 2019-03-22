@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //generator 是可以停止的
+    //由于next方法的参数表示上一个yield表达式的返回值，所以在第一次使用next方法时，传递参数是无效的
+    //格式
+    function *fn(){//加*
+        yield 'hello'
+        console.log('你好');
+        let a="1";
+        yield 'lloli'
+        // console.log('你好ma');
+
+        return 'ending';//可要,可不要
+    }    
+    let f=fn();//必须用变量接受fn()
+    // f.next();//是有返回的
+   console.log(f.next());
+   //done代表是否当前是最后一个,false,就是下面还有值
+   console.log(f.next());
+    //每一个next对应一个yield,
+   f.next();
+
+
+   //不能使用箭头函数
+
+   //demo2
+   function    *demo2(){
+       let a=yield '22';
+       //每一个yield都是暂停,每一次next都是对当前的yield进行获得
+    //    以及对上一次的yield的变量值进行传参
+       console.log(a);
+   }
+   let ff=demo2();
+   console.log(ff.next());
+   console.log(ff.next(1));//第二次next会运行到log(),a的值为next的传参
+   console.log(ff.next());
+    //函数中调用函数的参数中有yield的话,先next到yield
+    //然后调用函数
+    console.log("------------------------------");
+
+    //混和promise,generator
+    function pro(time,val){
+        return new Promise((re,rj)=>{
+              setTimeout(() => {
+                console.log("执行"+val);
+                re(val);
+                // run.next();                
+        }, time);
+        }
+           
+        )
+       
+    }
+    var gen=function *(){
+        let st1=yield pro(100,'吃饭')
+        let st2=yield pro(200,'睡觉')
+        let st3=yield pro(500,'洗澡')
+
+    }
+
+    // let fns=gen();
+    // fns.next.value//下一个yield的返回值
+    function run(fn){//控制generrator 和promise
+        let it=fn();
+        //it.value就是yield的返回值
+     
+        let go=(result)=>{
+            if(result.done){
+                return result.value;//执行到最后一个yield时,执行 这个yield
+            }
+            else{
+                return result.value.then(go(it.next()));//执行下一个yield
+            }
+        }
+        go(it.next());
+    }
+
+    run(gen);
+    </script>
+</body>
+</html>

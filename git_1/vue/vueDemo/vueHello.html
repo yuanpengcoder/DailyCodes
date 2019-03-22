@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+
+</head>
+<body>
+    <div>
+      <p>  {{message}}</p>
+        <input v-model="message" type="text">
+    </div>
+    
+    <!-- //实现一个双向绑定 ，input的值变化时message也变化，即view改变model -->
+<script>
+    var vm=new Vue({
+        el:'div',//挂载
+        data:{
+            message:"vue",//model可以改变view
+        }
+    })
+</script>
+</body>
+</html>

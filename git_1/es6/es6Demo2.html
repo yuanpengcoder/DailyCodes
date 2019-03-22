@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解构赋值，扩展运算符，函数扩展</title>
+</head>
+<body>
+    <!-- 
+            let/const  不能变量提升和 重复定义
+            let 必须先声明后定义
+            解构赋值
+                 字符串
+
+            扩展运算符
+               let a=['11','112','333'] ;
+               let a2=a;
+               当a2[1]='44';a[1]也会更改
+               但是如果使用 let a2=[...a];扩展运算符的话，就相当于  a2=newA=[...a]，所以更改对应值与原本数组无关
+               使用扩展运算符时，相当于把当前变量的值都提取出来  ...a就相当于字符串
+
+     -->
+     <script>
+        // demo1
+         let sample=[3,4];
+        //  console.log(1,...sample,5);
+        
+        // demo2
+        function add(x,y){
+            return x+y;
+        }
+        const   sample2=[1,2];
+       console.log(add(...sample2));
+       //demo3
+       function adds(x,y,...z){
+            let sum=0;
+            for(val of z){
+                sum+=val;
+            }
+            console.log(sum);
+         
+       }   
+       adds(1,2,3,4,5,6,7,8,8,8,9); 
+       console.log(adds.length);//获取函数参数的个数，但是无法获取到扩展运算符的参数
+     
+    // 函数扩展   demo4   
+    // 函数默认值 ，直接在参数中声明并赋值
+     function  defaultS(a='demo4'){
+            console.log(a);
+
+         }
+
+        defaultS();
+        defaultS('demo4!');
+        defaultS('');
+    // demo5 
+    // 函数默认值表达式的的值每次都重新计算，不会累加
+    // 传参的时候undeifned会触发默认值
+    // 所以默认值位置一般在最后，以防没有值的时候使用
+     function foo(x,z,y=3){
+         console.log(x,y,z);
+     }       
+     foo();
+     foo(1);
+     foo(1,2);
+     foo(1,4,undefined);
+     console.log(foo.length);
+    //  默认值不算在函数参数长度中,所以只计算默认值前的参数个数，所以一般建议把默认值放在最后
+     
+    //  demo6 
+    // 结构json对象
+     let {foo1,foo2}={foo1:01,foo2:33};//解构的时候变量名要一致
+     console.log(foo1);
+     console.log(foo2);
+
+     </script>
+</body>
+</html> 

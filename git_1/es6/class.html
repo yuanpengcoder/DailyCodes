@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //定义class es5
+        // function Poing(a,b){
+        //     this.a=a;
+        //     this.b=b;
+        //     let x=a+b;//私有
+        // }
+        // //实例化
+        // var p=new Poing(1,2);
+
+
+        // //es6
+         class Point{
+             constructor(a,b){//实例化class时传参是直接传到这里的
+                    this.a=a;
+                    this.b=b;
+                    let x=a+b;//私有
+                
+            }
+            print(){
+                console.log("a:"+this.a);
+            }
+            // print(val){
+            //     console.log(val);//js中不存在添加参数重写函数，而是后面的会覆盖前面的
+            // }
+            static print(val){//静态方法不会产生覆盖，是函数本身的方法，不能通过实例对象调用
+                    console.log(val);
+            }
+        }
+        //实例化
+        var p=new Point(1,2);//class必须使用new创建
+
+
+        //第二种创建class的方法
+        // let tclass=new class{
+        //     constructor(a,b){//实例化class时传参是直接传到这里的
+        //             this.a=a;
+        //             this.b=b;
+        //             let x=a+b;//私有
+                
+        //     }
+        //     print(){
+        //         console.log("a:"+this.a);
+        //     }
+        //     // print(val){
+        //     //     console.log(val);//js中不存在添加参数重写函数，而是后面的会覆盖前面的
+        //     // }
+        //     static print(val){//静态方法不会产生覆盖，是函数本身的方法，不能通过实例对象调用
+        //             console.log(val);
+        //     }
+        // }(1,2)
+         p.print(); 
+        Point.print('statics');
+
+
+        //继承 extends
+        class pointChild extends Point{
+            constructor(a,actio){
+                   super(a);//相当于父类的构造方法，同时传值过去,此时必须在第一行书写
+                   this.actio=actio; //继承之后，子类是没有this，所以必须super()
+                //    super.print();//super也可以指向父类的原型对象
+            }
+        }
+        let pc=new pointChild('狗','讲话')
+        // pc.print();
+        //继承机制，先创建一个父类的实例对象this(super()),
+        //再用子类的构造函数修改this
+    </script>
+</body>
+</html>

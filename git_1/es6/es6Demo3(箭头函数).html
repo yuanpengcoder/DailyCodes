@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数扩展->箭头函数</title>
+</head>
+<body>
+    <script>
+        // 原本定义
+            // function demo(){
+            //     console.log(11);
+            // }
+        // 箭头函数可变为
+        //let demo=()=>{
+        //        console.log(11); 
+        // }            
+        //  demo();
+            // demo2  一行代码的直接当作一个返回值。除了对象形式的需要用{},因为格式问题
+            let demo2=(num)=>num*10;
+            console.log(demo2(10));
+
+        // demo3
+            // 箭头函数不能new的 ，箭头函数无arguments，获取全部参数，用扩展运算符
+            // function demo3(){
+            //     console.log(arguments);
+            // }
+            let demo3=(...arr)=>{
+                console.log(arr);
+            }
+            demo3(1,2,3,4,5,6);
+        // demo4
+        // 箭头函数的this 是指向当前函数定义时所在的对象，所以对象中的方法使用箭头函数的形式的时候只能一直往上找
+        //,最终指向window
+    
+           name="window";
+           let obj={
+              name:'obj',
+              foo:()=>{
+                  console.log(this.name);
+              }
+          }
+          obj.foo();
+        //   demo5
+        //   函数方法在es6中有了简化
+        //箭头函数本身没有this,所以不能作为构造函数，获取this,必须是往上找
+        let obb={
+            name:'obb',
+            getName(){
+                console.log(this.name);//因为是对象中的方法，所以指向obb本身
+                function fss(){
+                    console.log("fss:"+this.name);//在方法中定义了一个函数，因为是普通函数，所以指向window
+                    
+                }
+                let fdd=()=>{
+                       console.log("fdd:"+this.name);
+                       //this指向函数定义时指向的对象，就是指向getName()定义时的对象
+                       //obb 
+                }
+                fss();
+                fdd();
+                
+            }
+        }
+        obb.getName();
+    </script>
+</body>
+</html>

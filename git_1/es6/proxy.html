@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //作为代理/拦截
+        //，使用proxy可以用一种更优雅的方式实现外部对对象的访问。
+        //demo1 当对对象的属性使用时,直接调用set,get方法
+        // var obj={
+        //     age,
+        //     set age(a){
+        //         return "hi"+a;
+        //     },
+        //     get age(a){
+        //            return a; 
+        //     }
+        // }
+        // obj.age=4;
+        
+        //demo2
+        //proxy(目标对象,调用函数) 目标对象会与proxy对象形成类似深拷贝的关系,可以彼此调用属性
+        //并且同步更新属性值
+        // var target={name:'1'};
+        // var proxy=new Proxy(target,function(){
+
+        // });
+        // target.age='22';
+        // proxy.name='2';
+        // console.log(target.age);
+        // console.log(proxy.name);
+
+        //demo3
+        var obj={
+            name:'101',
+            add(val){
+                return val;
+            }
+        }
+        let proxys=new Proxy(obj,{get:function(target,key,proxy){//copy obj对象下来
+            console.log("拦截属性");
+            if(target[key]==undefined){
+                console.log("没有属性");
+            }
+            return target[key];//必须是对target进行返回值的调用
+
+        },set:function(target,key,value){
+            console.log("拦截属性的值");
+            if(value>100){
+                throw new RangeError('The number typeError');
+
+            }
+            return target[key]=value;
+        }})
+        
+        // console.log(proxys.age);
+        // console.log(proxys.name);
+        // proxys.name=200;//会报错
+        // console.log(proxys.name);
+
+        //demo
+        //
+        let objs={
+            'name':'tt',
+            oldMethod(){
+                return name;
+            }
+        }
+        let noD=['name',''];
+        let noMethod=['oldMethod',''];
+        let prox=new Proxy(objs,{set:function(target,key,value){
+            if(target[key]!=value){
+                console.log('值不能修改');
+            }
+            return target[key];
+        },get:function(target,key,prox){
+               if(noMethod.includes(key)){
+                   console.log('不推荐使用');
+               } 
+                return Object.is(target[key],undefined)?(...args)=>{
+                    Reflect.apply(target[key],target,args)
+                    //每一个proxy调用的拦截操作，都会返回一个对应的reflect函数确保原生行为能够正确进行
+                }:target[key]
+        },deleteProperty(target,key){
+            if(noD.includes(key)){
+                throw new RangeError('The number typeError');
+            }
+        }
+        
+        });
+        delete prox.name;
+        prox.name='ts';
+        console.log(prox.name);
+        
+        console.log(prox.name);
+ </script>
+</body>
+</html>

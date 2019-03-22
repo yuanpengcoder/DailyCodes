@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Symbol</title>
+</head>
+<body>
+    <script>
+        // 基本数据类型  
+         // number boolean string undefined Null -->symbol  
+         // 对象 obj(fun arr )
+         //demo
+         let a=Symbol('独一无二的值');//添加的没有实际意义，只是描述性语句
+         console.log(a);
+         console.log(a.toString());//即使调用toString()函数依然直接输出a一样的
+        //demo1 独一无二 用作数组存值
+        let s=Symbol();
+        let d=Symbol();
+        let arr=[];
+        arr[s]=100;
+        arr[d]=200;
+        // console.log(arr);
+        //demo2 如果想要便利数组的话，调用函数，获取数组的全部smbol
+        for(let val of Object.getOwnPropertySymbols(arr)){
+            console.log(arr[val]);
+        }
+        //demo3 获取所有的下标或者说key值
+        for(let val of Reflect.ownKeys(arr)){
+            // 会默认输出一个length
+            console.log(val);
+            console.log(arr[val]);
+        }
+        //demo4 不能参与运算
+        // console.log(Symbol()+1);
+        // let obj={name:'111',id:'222'};
+        // obj.age=33;
+        // for(let val of obj){
+        //     console.log(val);
+        // }
+        //demo5 for
+        let aa=Symbol.for('1');
+
+        console.log(Symbol.keyFor(aa));//判断symbol里的值
+        let bb=Symbol.for('1');//for ，调用时，会在symbol中查询是否已经由'1'被创建，有就直接调用它。没有就默认创建一个
+        console.log(aa===bb);
+    </script>
+</body>
+</html>

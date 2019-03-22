@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组的扩展</title>
+</head>
+<body>
+    <!-- 具有length属性的对象，属于类似数组的对象 
+        array.from()是把这些类似数组的对象和可遍历的对象（set/map）转换成数组
+    -->
+    <script>
+        let obj={
+            0:'1',//属性名必须数字
+            1:'2',
+            'length':2//必须具有length属性，如果长度不符实，会出先多余的undefined
+        }
+        var arr=Array.from(obj);
+        console.log(arr);
+    
+        //demo1 
+        //forof  是得到值
+        let arrs=[1,2,3,4];
+        for (const val of arrs) {
+            console.log(val);
+            
+        }
+        //forin 是得到下表
+        for (const key in arrs) {
+            console.log(key);
+        }
+        //for item 获取键值对应
+        for (const item of arrs.entries()) {
+            console.log(item);//
+        }
+        //demo3
+        //arrayof 将一组值转换为数组 
+        console.log(Array.of(1,2,3,4,6,7));
+        //demo4 
+        //find(n=>n >/<数值)返回一个数组中的值第一个满足要求的值
+        //findIndex(n=>n >/<数值)返回一个数组中第一个满足要求的值的下标
+        
+        let arrrs=[1,2,50,90,100];
+        console.log(arrrs.find(n=> n>50));
+        console.log(arrrs.findIndex(n=>n > 40));
+        //demo5
+        //fill(替换值,开始下标，结束下标),是替换，不是插入
+        // console.log(arrrs.fill(0,2,4));
+        //demo6
+        //includes(查找的值,下标位置);
+        //只填查找的值会直接判断
+        console.log(arrrs.includes(50,2));
+    </script>
+</body>
+</html>

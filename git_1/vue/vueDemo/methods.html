@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+
+</head>
+
+<body>
+   <div >
+        <a :class="{active:isActive,classa:false}" :href="website" :data-xx="'xx'">vue</a>
+        <!-- data-*自定义属性 -->
+        <!-- {变量名:一个msg的boolean值},可以用来判断当前class是否有class 
+                或者直接写一个字符串类似classa:true/false，判断当前是否能赋值给class
+        -->
+        <!--  -->
+        <a :class=['static',classA] :href="website">vue</a>
+        <!-- 加多个变量名 用[]  ,分割开 -->
+        <!-- :class重复命名的话依次往后加 -->
+        <div :style="{backgroundColor:'#ccc',width:'20px',height:'20px' }">
+            <!-- 此时，不应有-的横线命名而要用驼峰式命名写style的代码 -->
+            :style
+        </div>
+        <!--从上可知，:style后是一个对象,所以可以直接在data里面定义一个对象  -->
+        <div :style="styleObj">
+                <!-- 此时，不应有-的横线命名而要用驼峰式命名写style的代码 -->
+                :style
+            </div>
+        <!--如果想在引用之后再加自定义的style对象 ,编程数组形式 -->
+        <div :style="[styleObj,{fontWeight:'bold'}]">
+                <!-- 此时，不应有-的横线命名而要用驼峰式命名写style的代码 -->
+                :style
+        </div>
+        
+        <!-- v-bind ={},这里可以附加多个属性值  -->
+        <div v-bind="{id:'vb',class:'vbc'}">
+                <!-- 此时，不应有-的横线命名而要用驼峰式命名写style的代码 -->
+                v-bind
+        </div>
+        <p>{{age}} </p>
+        <button @click="adds()">++</button>
+
+        <div>
+            {{reverse}}
+            {{timer}}
+            <p>{{obj.name}}</p>
+        </div>
+        <div>{{msg}}</div>
+        <div>{{ msg | rev |sub}}</div>
+        <p>{{arr}}</p>
+    </div>
+<script>
+    var vm=new Vue({
+        el:'div',//挂载
+        data:{
+            website:'http://www.baidu.com',
+             isActive:true,
+             classA:'classA',
+            styleObj: {backgroundColor:'#ccc',width:'100px',height:'100px' },
+            age:28,
+            obj:{
+                name:'name',
+                // 对象的响应式是以修改数值双向绑定的,但是如果要增加属性的话,需要再script 下
+                // 实现 Vue.set(vm,'obj','新增属性')来增加
+
+            },
+            arr:['1','2','3'],
+            // 数组如果要达到响应式的双向绑定的话, 加值需要用push()方法
+            msg:'filterMsg'
+        },
+        filters:{
+            // 过滤器,直接对数据进行函数,可以有多个过滤器,依次取前面的值计算
+            rev:val=>val.split("").reverse().join(),
+            sub:val=>val.substr(2,4)
+        },
+        computed:{
+            // 计算属性,然后返回一个值,当作属性而不是方法再html中调用
+            reverse(){
+                return this.classA.split("").reverse().join()//反应式依赖,源数据改变,也会改变
+            },
+            // timer(){
+            //     return Date.now()
+            //     //具有缓存属性,所以即使再不同时间运行timer依然显示同样的时间,除非cache:false
+            // },
+            timer:{
+                cache:false,
+                get(){
+                    return Date.now()
+                    //具有缓存属性,所以即使再不同时间运行timer依然显示同样的时间,除非cache:false
+
+
+                },
+            },
+
+        },
+        watch:{
+            // 监听数据的变化,跟computed很像,都是数据一改变就调用
+            "obj.name"(val,oldval){
+                console.log(val),
+                console.log(oldval)
+            },
+            classA(val,oldval){
+                console.log(val),
+                console.log(oldval)
+            },
+        },
+        methods:{
+            adds(){
+                this.age++;
+            }
+        },
+       
+    //    template:" <p>  {{message}}</p>",
+        //模板不能替换body,会将整个挂载点替换
+        // render:h=>h('p','hello')//优先级最高，但是使用起来麻烦
+    })
+</script> 
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // callback 回调地狱
+        // () = > {
+        //     ()=>{
+        //         ()=>{
+        //             ...
+        //         }
+        //     }
+        // }    
+        // set.add().add().add() 这就是一种链式调用
+        // promise就是一种链式调用
+        //三种状态
+        //fullfilled 成功
+        //rejected 失败
+
+        //demo1 
+        //原本
+    //     function step() {
+    //         console.log("1");
+    //         step2();
+    //     }
+    //    function step2() {
+    //         console.log("2");
+    //         step3();
+    //     }
+    //     function step3() {
+    //         console.log("2");
+            
+    //     }
+
+    //     step();
+        //用法  , 是一个构造函数,所以要初始化一个实例对象
+        //传参进去
+        //promise
+        //解决异步函数调用
+        function step(resolved,rejected) {
+           setTimeout(() => {
+               console.log("1");
+                resolved('成功');//成功必须返回一个re值才能继续链式调用
+           }, 1000);
+        }
+       function step2(resolved,rejected) {
+           setTimeout(() => {
+                console.log("2");
+                resolved('成功');//成功必须返回一个re值才能继续链式调用
+
+           }, 1000);
+           
+         
+        }
+        function step3() {
+            setTimeout(() => {
+                  console.log("3");
+            }, 1000);
+        }
+        //是异步的,但是实行的逻辑是同步,链式执行顺序
+        // new Promise(step).then(function(val){
+        //     console.log(val);//获取上一个函数的返回值re
+        //     return new Promise(step2);
+        // }).then(step3);
+        // //js原本的执行顺序是从上到下执行
+        // console.log("这是promise");
+
+
+        //通常为了更清晰,将promise写进函数里面,
+
+        //demo2
+        function steps() {
+          return new Promise( (resolved,rejected)=>{
+             setTimeout(() => {
+               console.log("11");
+                resolved('成功');//成功必须返回一个re值才能继续链式调用
+           }, 1000)
+          }   
+ 
+        )
+      
+        }
+       function steps2(val) {//可以传上一级的参数过来
+          return new Promise((resolved,rejected)=>{
+                 setTimeout(() => {
+                // console.log(val+"22");
+                rejected('error');
+                resolved(val+'成功2');//成功必须返回一个re值才能继续链式调用
+
+           }, 1000)
+          }
+           
+        )
+          
+           
+         
+        }
+        function steps3() {
+            setTimeout(() => {
+                  console.log("3");
+            }, 1000);
+        }
+        steps().then((val)=>{
+            console.log('中间'+val);
+            return new Promise((re,rj)=>{
+                re(val);
+            });
+            //不同函数中间也能获取到参数,但是要返回一个promise值,
+            // 不然无法继续向下传参
+        }).then(steps2).then(steps3).catch((err)=>{
+            //rejected执行时会调用这里的函数,err就是rj的值
+            if(Object.is(err,'error')){
+                console.log('Error');
+            }
+        });
+
+
+        //demo 用户登录实例
+        //
+        getUser().then((res)=>{
+            if(res=='管理员')return getAdmin;
+            else {
+                return getUserm;
+            }
+        }).then((res)=>{
+            return Moudle;
+        })
+
+</script>
+</body>
+</html>

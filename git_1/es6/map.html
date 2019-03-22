@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map</title>
+</head>
+<body>
+    <script>
+        //weakMap只接受对象作为键名
+        // 键值对的集合 
+        //has()查询返回boolean值
+        let obj=()=>12;
+        let obj1={name:'11'};
+        let map=new Map();
+        map.set(obj,'1').set(obj,'2').set(obj1,'3');//存值时,
+        // 可以存入函数和对象,但是可以重新传值进去
+        console.log(map);
+        map.set('1',obj).set(obj,'2').set(obj1,'3');//存值时,可以
+        console.log(map);
+        //get(key)可以获取map里面的值
+        //clear()是清空的作用
+        //delete(key)
+        //遍历跟set一样
+        // for (const key/val of map.values()) {
+            
+        // }
+
+        //初始化map对象是数组嵌套数组的模式
+        let mapss=new Map([['1st','1'],['2d','2']]);
+        console.log(mapss);
+
+        //两个相同的对象永远不等
+        //除非你事先声明一个变量名来初始化那个对象,在调用这个变量,来进行查询,才会返回同一个变量
+
+        //map转数组
+        let mapDemo=new Map([['1',1],['2',2],['3',3]]);
+        console.log([...mapDemo]);
+        console.log([...mapDemo.values()]);
+
+        //数组转map map(数组)
+
+        //map转对象
+       function mapTo(map){
+        let obj={};
+            for (const [k,v] of map) {
+                obj[k]=v;
+            }          
+            // return obj;//转对象
+             return JSON.stringify(obj);  //转json字符串  对象是可以直接转成json
+
+       }
+       console.log(mapTo(mapDemo));
+
+       //对象转乘map
+       let obh=mapTo(mapDemo);
+
+</script>
+</body>
+</html>

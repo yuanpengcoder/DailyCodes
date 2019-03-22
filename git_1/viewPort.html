@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>Document</title>
+</head>
+<script>
+    // doucment.clientWidth
+</script>
+<style>
+  /* dd-w160px   he160px 
+		320/4  ->80
+		375/4  ->93.7
+		414/4  ->103.6
+  */
+	html{
+		font-size: 200px;
+	}
+   	#dd{
+		width: 2rem;
+		height: 2rem;
+		color:red;
+		background-color: red;
+	}
+	@media (min-width: 310px max-width: 330px) {
+		html{
+			font-size: 80px;
+		}
+	}
+	@media (min-width: 370px max-width: 380px) {
+		html{
+			font-size: 93.7px;
+		}
+	}
+	@media (min-width: 410px max-width: 440px){
+		html{
+			font-size: 101.3px;
+		}
+	}
+	/*@media (min-width: 1000px){
+		html{
+			font-size: 316px;
+		}
+	}*/
+</style>
+
+<body>
+	<div id="dd">
+		sssssss
+	</div>
+</body>
+</html>

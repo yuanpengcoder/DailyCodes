@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<style>
+    img{
+        width: 200px;
+        height: 200px;
+    }
+</style>
+<body>
+        <div id="con">
+
+            </div>
+    <script>
+        //假设导航条绑定运行,左标签绑定右标签
+        // function left(){
+        //     return new Promise(
+        //         function(res,rej){
+        //             $.ajax({
+        //                 url:"./a.json",
+        //                 type:"get",
+        //                 dataType:"json",
+        //                 success:function(data){
+        //                     console.log("数据:"+data.name);
+        //                     res(data.name);
+        //                 },
+        //                 error:function(err){
+        //                        rej(err); 
+        //                 }
+
+        //             })
+        //         }
+        //     )
+
+        // }
+
+        //   function right(val){
+        //     return new Promise(
+        //         function(res,rej){
+        //             $.ajax({
+        //                 url:"./b.json",
+        //                 type:"get",
+        //                 dataType:"json",
+        //                 success:function(data){
+        //                     if(data.name==val)
+        //                     console.log("数据:"+data.age);
+        //                     res(data);
+        //                 }
+
+        //             })
+        //         }
+        //     )
+
+        // }
+        // left().then(right).catch((err)=>{
+        //        console.log(err.statusText); 
+        // });
+
+
+        //图片加载
+        var arr=[
+            'http://img.daimg.com/uploads/allimg/190212/1-1Z212145I4.jpg',
+            'http://img.daimg.com/uploads/allimg/190212/1-1Z212150F3.jpg',
+            'http://img.daimg.com/uploads/allimg/190319/3-1Z319141T90-L.jpg'
+        ]
+        function imgInit(url){
+            return new Promise((re,rj)=>{
+                var img = document.createElement("img");
+                // var img=new Image();
+                img.src=url;
+             
+                 document.getElementById('con').appendChild(img);
+                img.onload=()=>{
+                    re(img);
+                    // console.log(img.src);
+                }
+                img.onerror=()=>{
+                    rj(new Error('添加失败'));
+                }
+            })
+        }
+        // imgInit(arr[0]).then(imgInit(arr[1])).then(imgInit(arr[2])).catch((err)=>{
+        //     console.log(err);
+        // })
+        //也可以使用all()方法
+            let promises=[];
+            for (const val of arr) {
+                promises.push(imgInit(val));
+            }//将所有的图片promise对象存入数组中
+            Promise.all(promises).then(()=>{
+                console.log("打印完成");
+                //都成功才能全部运行,有一个失败就是失败状态
+            }).catch((err)=>{
+                console.log(err);
+            });//按照存入顺序依次加载
+    </script>
+ 
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+
+</head>
+<style>
+    [v-cloak]{
+        /* 
+            因为在浏览器加载vue的插件进来之前，浏览器是不是别vue代码的，为了避免这种对用户来说不友好的状况，
+            在使用了vue指令的标签中加入 v-cloak,在css统一设置为none，意思是加载完成之前，v-指令的标签是看不到的
+         */
+        display: none;
+    }
+</style>
+<body>
+    <div>
+      <p>  {{message.length>3?"vuejs":"failed"+"ok"}}</p>
+      <!-- 上面那个可以写js表达式， -->
+      <p v-text=message v-once>  </p>
+      <!-- v-once 是指，message这个数据在p标签这里只会获得一开始第一次的值，之后即使改变message的值，这里也不会在改变了 -->
+      <p v-html=message>  </p>
+      <!-- v-text的跟上面那个直接传值是一样的，直接渲染值
+        v-html可以穿的值直接显示成html代码
+        v-都是指令，
+        -->
+    <p v-show="isShow">v-show</p><!--  如果v-show为真，则显示，false则不显示，即display noned得形式-->
+    <p v-if="isShow">v-if</p><!--  如果v-if为真，则显示，false则直接从dom中移除-->
+    <p v-else="isShow">v-else</p><!--  如果v-if为false，则显示-->
+        <!--所以只是隐藏和出现，用v-show  -->
+    <input v-model="message" type="text">
+            <!-- //实现一个双向绑定 ，input的值变化时message也变化，即view改变model 
+            这个data是有根据挂载的值，有范围的
+            -->
+            <!-- 
+                就相当于
+                :value="message"
+                @keyup="message=$event.target.value"
+             -->
+
+    <ul>
+        <!-- <li v-for="book in books" key="">{{book}}</li> -->
+        <li v-for="(book,index) in books" >{{index}}、{{book}}</li>
+         <!--v-for 实现循环操作， 要写在被循环得这一级  -->
+    </ul>
+
+    <p v-for="(item,key,index) in person">
+       {{index}}.{{key}} {{item}}
+    </p>
+    <!-- 对象也可以for循环 -->
+
+    <div @click="message='clickDemo'"> 
+          <!-- v-on:的简写 是@ -->
+        {{message}}
+    </div>
+        <div v-bind:class="cl">
+            <!-- v-bind:   可以修改标签的属性的值 ,缩写 :-->
+       xxx </div>
+</div>
+
+<script>
+    var vm=new Vue({
+        el:'div',//挂载
+        data:{
+            message:"<b>vue</b>",//model可以改变view
+            isShow:true,
+            cl:"classL",
+            books:[
+                'books1','books2','books3'
+            ],
+            person:{
+                id:1,
+                name:'ss'
+            }
+        },
+    //    template:" <p>  {{message}}</p>",
+        //模板不能替换body,会将整个挂载点替换
+        // render:h=>h('p','hello')//优先级最高，但是使用起来麻烦
+    })
+</script>
+</body>
+</html>

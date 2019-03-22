@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="con">
+
+
+    </div>    <script>
+        //声明
+        // async function name(params) {
+            //函数声明
+        // }
+        // let fn = async() => {
+        //         表达式声明
+        // }
+        // //
+        // let obj={
+        //     async getName(){
+        //         //表达式声明
+        //     }
+        // }
+
+
+        //async()函数里面的await会自动把他后面的值或函数返回一个promise对象，
+        //所以一般我们自觉把后面的函数的返回值返回一个promise对象
+        async function text() {
+            // return await 123;//await会把123当作re()的参数，可以获取val
+            return await Promise.resolve(123);
+        }
+        text().then((val)=>{
+            console.log(val);
+        })
+        //
+
+
+
+
+        //实例
+
+
+               //图片加载
+         var arr=[
+            'http://img.daimg.com/uploads/allimg/190212/1-1Z212145I4.jpg',
+            'http://img.daimg.com/uploads/allimg/190212/1-1Z212150F3.jpg',
+            'http://img.daimg.com/uploads/allimg/190319/3-1Z319141T90-L.jpg'
+        ]
+        function pro(url){
+            return new Promise((re,rj)=>{
+                var img = document.createElement("img");
+                // var img=new Image();
+                img.src=url;
+             
+                 document.getElementById('con').appendChild(img);
+                img.onload=()=>{
+                    re(img);
+                    // console.log(img.src);
+                }
+                img.onerror=()=>{
+                    rj(new Error('添加失败'));
+                }
+            })
+        }
+
+    var gen=async()=>{
+        // let st1=await pro(val)
+        // let st2=await pro(val)
+        // let st3=await pro(val)
+        //相当于下面的遍历，同时async会默认按照顺序输出
+        try {
+            for (const val of arr) {
+                let st= await pro(val); //promise resolve
+                // console.log(val);
+                }
+        } catch (error) {
+            console.log(error);//报错就不会继续往下执行了
+            // continue 
+        }
+        
+
+    }
+
+    gen();
+
+    
+
+        
+    </script>
+</body>
+</html>

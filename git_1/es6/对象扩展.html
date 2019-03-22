@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+    // demo1
+    // Object.is(比较值1,比较值2)，更准确
+    //demo2  合并对象
+    // Object(合并后对象返回的值,被合并的对象1,...)
+    const a1={a:1,b:2};
+    const a2={b:6,c:3};
+    const a3={c:7,d:4};
+    console.log(Object.assign(a1,a2,a3));//当对象的属性名中有重复的属性名时，
+    // 合并后的对象中属性名的值为被合并的对象的值，后面的覆盖前面的值
+    console.log(a1);//打印对象的时候不能跟其他字符串连接
+    //demo3 
+    //对对象进行遍历
+    for (const keys of Object.keys(a1) ){
+        console.log(keys);//打印属性名
+    }
+    for (const val of Object.values(a1)) {
+        console.log(val);//打印值
+    }
+    </script>
+</body>
+</html>

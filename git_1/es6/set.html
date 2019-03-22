@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>set</title>
+</head>
+<body>
+    <script>
+        // demo
+        //set 不允许重复值
+        let arr=[1,2,3,3,4,5,6,6];
+        let set=new Set(arr);
+        console.log(set);
+        // set里面可以存放任意的数值
+        //  let set=new Set([],{},a,str,null,undeifined)
+        //demo3
+        //使用扩展运算符在初始化set()函数后在将其打印 ，并用[]将它赋给数组，达到消除重复值的作用
+        arr=[...set];
+        console.log(arr);
+        // 对象和对象永远不等
+        // set 键就是键值
+        const sets=new Set([11,2,3,4,5,5,6,6]);
+        // sets.forEach((val,key)=>{
+        //        console.log(key,val); 
+        // });
+        // 遍历方法,keys，entries
+        for (const val of sets.values()) {
+            console.log(val);
+            
+        }
+        //add().添加元素到set
+        const setss=new Set();
+        for(let i=0;i<10;i++){
+            setss.add(i);
+        }
+        console.log(setss);
+        console.log(setss.size);//只有size，没有length
+        //delete,has.clear
+        //has 查找这个元素是否存在
+        setss.delete(3);
+        console.log(setss.has(3));
+        setss.clear();//清空所有元素
+        console.log(setss);
+        //转换set成为数组  
+        // from
+        console.log(Array.from(sets));
+        //扩展符转换
+        console.log([...sets]);
+
+        //demo
+        //求交集 并集
+        let setDemo1=new Set([1,2,3,4,5]);
+        let setDemo2=new Set([4,5,6,7,8]);
+        //交集
+        console.log(new Set([...setDemo1,...setDemo2]));//两者一起的
+        //并集，两者都有的
+        console.log(new Set([...setDemo1].filter(val=>setDemo2.has(val))));
+    // 
+
+
+    //weakSet 结构与set类似，成员是不重复的值，但区别是成员只能是对象
+    //不能遍历和取值，只能用来判断是否有重复对象
+    //只有添加和查询两个功能
+    </script>
+</body>
+</html>

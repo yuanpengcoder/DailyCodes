@@ -1,0 +1,71 @@
+// main.less
+@width: 100%;
+@height: 100px;
+@color: red;
+// less 第一个特点,声明全局变量,提高可维护性
+//第二个特点  将公共属性提取出来作为一个公共类,减少重复
+.mar(){//使用公共类时,记得加括号,否则会创建一个新的类
+    //混和
+    margin-bottom: 5px;
+}
+//第三个特点 函数
+//根据不同的参数生成不同的样式
+// 一般用来保证浏览器的兼容性
+.allFon(@font:50px;@fonC:bold){//参数可以设置默认值
+    // 函数如果有多个默认值,调用时就是通过变量名调用
+    font-size: @font;
+    font-weight: @fonC;
+}
+//函数允许名相同参数不同的函数
+
+//第四 
+//父子关系嵌套
+
+.div1{
+    padding: 0;
+        .div2{
+        width: @width;
+        height: @height;
+        background-color: @color;    
+    }
+}
+
+// * arguments
+.borders(@borderS;@border-w;@boCo:blue){
+    // border: @borderS @border-w @boCo;
+    border:@arguments;//这个相当于将参数全部赋值到这个变量后
+}
+//when作为判断函数
+// .fun() when (){}
+//,和and类似
+//not
+
+//可以参与运算
+
+//在字符串中插值 "xxx@{要插入的变量}xxx"
+
+//import 引入另一个less 文件
+//格式 @import "" 
+.container{
+   width: @width;
+   height: @height;
+   background-color: @color; 
+    .mar();
+    .allFon(@fonC:100;@font:20px,);
+    .borders(10px;solid;blue);
+}
+
+.container2{
+  width: @width;
+  height: @height;
+    .mar();
+    .allFon();
+}
+
+.container3{
+  width: @width;
+  height: @height;
+  background-color: @color;
+    .mar();
+    .allFon(50px);
+}
