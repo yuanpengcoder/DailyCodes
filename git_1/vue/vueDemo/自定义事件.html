@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>    
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="components-demo">
+        <p>{{hel}}</p>
+        <blog-pp :title="title" :attrsp="title" noprop="不用: 去绑定就是字符串" @to-child="getChild"></blog-pp>
+
+    </div>
+    <template id="blog-pp">
+        <!-- 模板必须被包在一个根目录元素下，不能有同级状况 ,下面的h1和button必须有一个div嵌套才能用做模板-->
+        <div>
+            <h1>{{msg}}</h1>
+            <!--{{this.$attrs}}-->
+            <button @click="sendchild"></button>
+            <!-- 调用函数时也不用写() -->
+        </div>
+    </template>
+    <script>  
+        Vue.component('blog-pp', {
+                //script引入方式时，会自动把驼峰转为- ,大写字母变小写
+                props:['title','noprop','getChild'],
+                // 实现一个父组件向子组件的传递，获得父组件的title,
+                data:function(){
+                    return {
+                        msg:"component"
+                        // 必须用函数
+                    }
+                },
+                methods:{
+                    sendchild(){
+                        // this.getChild(this.msg)
+                        this.$emit('to-child',this.msg)//自定义事件,创建一个事件，里面有一个参数msg
+                    },
+                },
+                // template:'<h3>{{title}}</h3>'
+                // template:'<h1>{{title}}</h1>'
+                // 第二种写法，引用template
+                template:'#blog-pp'
+        })//顺序不能写错
+        var vm=new Vue({
+            el:'#components-demo',
+            data:{
+                hel:22,
+                title:'Mytitle',
+            },
+            methods:{
+                getChild(data){
+                    this.hel=data
+                    //获取子组件的值，第二种方法
+                    //用自定义事件
+                    //父组件创建一个带参的函数，用来获得子组件的值
+                    //在子组件得prop中声明这个函数，在模板中获取到这个函数，
+                    //在单机事件的函数中创建 this.$emit('to-child',this.msg)一个事件，将你需要传递的参数放进去
+                    //然后在你的html的component注册过的组件中 设置你自定义的组件，并将你prop中获取的父组件的函数，赋值给他,
+                    // 让这个函数通过自定义事件调用到子组件的参数 eg: @to-child="getChild"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

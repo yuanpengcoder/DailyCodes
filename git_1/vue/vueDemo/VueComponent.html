@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>    
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="components-demo">
+        <p>{{hel}}</p>
+        <blog-pp :title="title" :attrsp="title" :get-child="getChild" noprop="不用: 去绑定就是字符串"></blog-pp>
+        <!-- :代表对父组件操作 
+            不用prop声明得话，会直接为标签新增属性
+        -->
+        <!-- attrsp 没有在components里面接受，所以这里是组件里面是获取不到值得，
+            它会把根目录下传过来得变量存在attrs里面 -->
+    </div>
+    <template id="blog-pp">
+        <!-- 模板必须被包在一个根目录元素下，不能有同级状况 ,下面的h1和button必须有一个div嵌套才能用做模板-->
+        <div>
+            <h1>{{msg}}</h1>
+            <!--{{this.$attrs}}-->
+            <button @click="sendchild"></button>
+            <!-- 调用函数时也不用写() -->
+        </div>
+    </template>
+    <script>  
+        Vue.component('blog-pp', {
+                //script引入方式时，会自动把驼峰转为- ,大写字母变小写
+                props:['title','noprop','getChild'],
+                // 实现一个父组件向子组件的传递，获得父组件的title,
+                data:function(){
+                    return {
+                        msg:"component"
+                        // 必须用函数
+                    }
+                },
+                methods:{
+                    sendchild(){
+                        this.getChild(this.msg)
+                    },
+                },
+                // template:'<h3>{{title}}</h3>'
+                // template:'<h1>{{title}}</h1>'
+                // 第二种写法，引用template
+                template:'#blog-pp'
+        })//顺序不能写错
+        var vm=new Vue({
+            el:'#components-demo',
+            data:{
+                hel:22,
+                title:'Mytitle',
+            },
+            methods:{
+                getChild(data){
+                    this.hel=data
+                    //父组件获取子组件得方法
+                    //父组件创建一个带参的函数，用来获得子组件的值
+                    //在子组件得prop中声明这个函数，在模板中获取到这个函数，
+                    //然后在子组件中创建一个函数,在模板的标签中使用点击事件之类的方法调用这个函数
+                    // ，这个函数实现传参对已经声明的函数传参
+                }
+            }
+        })
+    </script>
+</body>
+</html>
