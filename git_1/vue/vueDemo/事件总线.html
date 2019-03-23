@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件总线</title>
+    <script src="https://unpkg.com/vue"></script>
+
+</head>
+<body>
+    <div id="component">
+            
+            <fcomponent></fcomponent>
+            <scomponent></scomponent>
+    </div>   
+    <template id="fcomponent">
+        <div>
+               <p> {{count}}</p>
+                <button @click="sendc"></button>
+        </div>
+    
+    </template>
+    <script>
+        var EventBus= new Vue();
+
+        Vue.component('fcomponent',{
+            data:function(){
+                    return {
+                        count:"component"
+                        // 必须用函数
+                    }
+                },
+            template:"#fcomponent",
+            methods:{
+                sendc(){
+                    EventBus.$emit('sendc',this.count)
+                },
+            }
+
+        })
+        Vue.component('scomponent',{
+            data:function(){
+                
+                    return {
+                        count:""
+                        // 必须用函数
+                    }
+                
+            },
+            template:"<div>{{count}}</div>",
+            mounted(){
+                //  真实dom渲染完了，可以操作dom
+                EventBus.$on('sendc',count=>this.count=count)
+                
+            },
+            // methods:{
+            //     getc(data){
+            //         EventBus.$on('getc',count=>count=this.count)
+            //     },
+            // }
+        })
+         var vm=new Vue({
+            el:'div'
+        })
+    </script>
+
+
+</body>
+</html>
