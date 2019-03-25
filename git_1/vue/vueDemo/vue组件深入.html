@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+
+</head>
+<body>
+    <div><componenta :prop-name="'ni@hao'"></componenta></div>
+    <script>
+        var ComponentA = { 
+            name:'coma',
+            template:"<p>test</p>",
+            props:{
+                'prop-name':{
+                       type:String,//限制类型
+                       require:true, //true意为必须传值，false则为不用传值
+                        default:'hi',//没有传值得时候，默认值
+                       validator:function (value) {//验证函数
+                           return value.indexOf('@')>0
+                       }
+                }
+                }
+            }
+
+            
+       var vm=new Vue({
+           el:'div',
+           name:'app',
+           data:{},
+           components:{
+            'componenta':ComponentA//局部注册
+           }
+
+       })
+    </script>
+</body>
+</html>
