@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<!-- $attrs代表的是component里面的v-bind:的传的参数，但是并没有接受（没有放在props里面），就全部存入这里面 -->
+<!-- 多组件用$listeners -->
+    <div>
+        <fcom  :msg='msg'>  </fcom>
+      
+
+        <!-- 传参记得在这里写 -->
+    </div>
+    <script>
+        Vue.component("fcom" ,{
+            //  props:['msg'],
+            data:function(){
+                return {
+                    child:1
+                }
+                },
+            template: "<mcom @sendc='send' v-bind='$attrs'></mcom>",
+            //子级向父级传值,
+            //跨多级传值$attrs储存所有props里面没有声明的数,把他们放在v-bind里面依次往后传,
+            // 到了最后一层,把你需要的attrs里面有的值在props里面声明,然后取到它
+            methods:{
+                send(dat){
+                    console.log(dat);
+                    this.child=dat;
+                }
+            }
+                
+            
+
+        })
+        Vue.component("mcom" ,{
+            props:'',
+            data:function(){
+                return {
+                    child2:22
+                }
+                },
+            template: "<lcom v-on='$listeners' v-bind='$attrs'></lcom>",
+            methods:{
+            }
+        })
+                
+            
+
+        // })
+        Vue.component("lcom" ,{
+            props:['msg','send'],
+            data:function(){
+                return {
+                    child2:2
+                }
+                },
+            template: "<div>{{msg}}<button @click='cc' >回传</button></div>",
+            methods:{   
+                 cc(){
+                // console.log(this.$attrs.msg, this.$listeners);
+                this.$emit("sendc",this.child2);//..这里是对component里的sendc传参,这样才能传入send函数里面
+            }
+                
+            },
+        
+            
+
+        })
+        vm=new Vue({
+            "el":"div",
+            "name":"app",
+            data:{
+                "msg":"fa",
+            },
+            method:{
+     
+            }
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <!-- ref，对dom操作的时候使用它
+     -->
+     <div >
+         <com-a></com-a>
+  
+     </div>
+<script>
+    Vue.component('comA',{
+        data:function(){
+            return { count:1}
+        },
+        //
+        template:" <div><div  ref='comaa'>{{count}}</div><button @click='getr'></button></div>",
+        methods:{
+            getr(){
+                console.log(this.$refs.comaa)
+                // this.$refs.comaa.count=2
+            },
+        }
+
+    })
+    var vm=new Vue({
+        "el":'div',
+
+    })
+
+</script>
+</body>
+</html>
