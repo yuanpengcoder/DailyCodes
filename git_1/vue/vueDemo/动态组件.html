@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div>
+        <button @click="componentId='com-a'">1</button>
+        <button @click="componentId='com-b'">2</button>
+	    <button @click="componentId='com-c'">3</button>
+        <keep-alive>
+
+        <component :is='componentId'></component>
+        </keep-alive>
+    </div>
+    <script>
+        // component  有一个属性，可以动态的切换当前的component在newVue中 :is
+        //用rener渲染不同的com
+        // 2、keep-alive(把compoennt包起来)，可以缓存失活的动态组件，因此不会执行create等钩子函数
+        //activated()钩子函数 deactivated()
+        //is 属性来切换不同的组件
+        // 按钮点击切换组件
+        Vue.component('com-a',{
+            activated(){
+             console.log('active')
+         },
+        deactivated(){
+            console.log('dea')
+        },
+            render:h=>h('div','aaa'),
+        })
+        Vue.component('com-b',{
+            render:h=>h('input','bbb'),
+        })
+        Vue.component('com-c',{
+            render:h=>h('div','ccc'),
+        })
+        new Vue({
+        'el':'div',
+        data:{
+            componentId:'com-a'
+        },
+        method:{
+                   
+        },
+        updated(){
+            console.log(this.componentId)
+        },
+        activated(){
+            console.log('active')
+        },
+        deactivated(){
+            console.log(dea)
+        }
+        // components:,
+        // template:''
+
+
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div>
+        <vc></vc>
+    </div>
+    <script>
+    // $nextTick,组件内使用它，实现一个异步执行
+    //this.$el.textContent 
+    Vue.component('vc',{
+        data:function (){
+         return {
+             count:1,
+         }   
+        },
+        template:"<button @click='count++'>{{count}}</button>",
+        beforeUpdate(){
+            console.log(this.$el.textContent),//
+
+            this.$nextTick(()=>{//异步执行，得到dom执行之后的值
+                console.log(this.$el.textContent)
+            })
+
+        }
+    })
+    //问题：点击后实现 count++，调用实现dom的count数据更新
+    new Vue({
+        'el':'div'
+    })
+    </script>
+</body>
+</html>
