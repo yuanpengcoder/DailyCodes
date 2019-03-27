@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script> -->
+
+</head>
+<body>
+    <!-- todo
+    一个输入框,两个根主键
+    v-model其实就是v-bind:checked的语法糖，简单来说，v-model的优先级比v-bind:checked的高
+
+    //一个搜索框，下面有内容分类，可以勾选和删除
+    //@keyup.enter 时添加
+    //过滤掉被勾选的值，统计长度
+    //统计所有数据的长度 -->
+    <div id="app">
+        <input type="text"  placeholder="查询"  v-model='kad' @keyup.enter='adds'/>
+        <search-data v-for="(item,key) in alldatas"  :item='item' :key='key' :alldatas='alldatas' >  </search-data>
+        <tab :alldatas='alldatas' ></tab>
+    </div>
+    <template id="search-data">
+        <div>
+        <input   v-model='item.isComplated' type="checkbox" />
+         {{item.ad}}<button @click="desl"> X</button>
+        </div>
+   
+ <!-- v-for="allData in allDatas v-model='isComplated' :value='allData.ad'" -->
+    </template>
+
+    <script>
+        Vue.component('tab',{
+            props:['alldatas'],
+            data:function(){
+                return {
+                    all:'',
+                    allfalse:'',
+                }
+            },
+            computed:{
+                allmsg () {//
+                    return this.alldatas.length
+                    //  this.all=
+                  },
+                
+                // alltrue(){  
+                    
+
+            
+                // //    return this.alldatas.filter(item=>item==true)
+
+                // return this.alldatas.filter(()=>{
+                //       let i=0,
+                //      for (;i<this.alldatas.length;i++){
+                //          if(val.isComplated===true){
+                //               i++
+                //         } 
+                //    }
+                // })
+
+                // }
+            },
+             template:'<div>所有数据为{{allmsg}}<br>true数据为{{alltrue}}</div>'
+            //调用computed的函数，根据返回值的更新动态的更新
+
+        }),
+        Vue.component('search-data',{
+            props:['item','alldatas'],
+            //传递数组时记得不要用驼峰和-
+            data:function(){
+                // allDatas
+                   return {
+                    //    items:{},
+                    
+               
+                       count:1,
+                   } 
+            },
+            template:'#search-data',
+            methods:{
+          
+                 desl(){
+                    //  console.log(this.alldatas)
+                    console.log(this.item),
+
+                    // console.log(this.alldatas.findIndex(test=()=>{return this.item}),
+                    //获得对应值得索引,findIndex()需要函数
+                    //splice()删除数组中的元素,索引，长度
+                     this.alldatas.splice(this.alldatas.findIndex(test=()=>{return this.item}),1)
+                //     this.items=e.target.item,
+                //      console.log(this.items),
+                // console.log(this.alldatas)
+                },
+       
+            }
+           
+        })
+    var vm=new Vue({
+        name:'app',
+        "el":'#app',
+        data:{
+            kad:'',
+            keyups:{
+                        ad:'',
+                        isComplated:false
+                    },
+            alldatas:[
+                {ad:'xx',
+                isComplated:false
+            },
+            {ad:'yy',
+                isComplated:false
+            }
+            ],
+        },
+        methods:{
+            adds(){
+                    this.keyups.ad=this.kad,
+                    this.alldatas.unshift(this.keyups)
+                }
+        }
+    })
+    </script>
+    
+</body>
+</html>
