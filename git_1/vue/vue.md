@@ -29,3 +29,18 @@ var ComponentA={
 ​	}
 
 })
+
+# 打包会出错，Module build failed: ValidationError: CSS Loader Invalid Options
+
+
+
+  css-loader版本降为0.28.7
+
+
+  
+
+
+
+
+
+<https://blog.csdn.net/qq_34672907/article/details/80137609>
