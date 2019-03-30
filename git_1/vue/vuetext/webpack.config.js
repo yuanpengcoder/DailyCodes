@@ -14,6 +14,10 @@ const config ={
         filename:'[name].js',
         path:path.resolve(__dirname,"dist")
     },
+    // resolve:{
+
+    // }
+    //extensions 省略打包文件的后缀名
     module:{
         rules:[
             {
