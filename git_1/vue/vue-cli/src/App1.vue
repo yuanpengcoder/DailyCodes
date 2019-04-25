@@ -31,10 +31,9 @@ import 'swiper/dist/css/swiper.css'
 
 Vue.use(VueTouch, {name: 'v-touch'})
 Vue.directive('imgurl',{
-  bind:function(el,binding,vnode){
+  bind:function(el,binding,vnode){//只调用一次
         console.log('img:'),
     el.src=binding.value.urls
-
   }
 })
 Vue.directive('collors', {
