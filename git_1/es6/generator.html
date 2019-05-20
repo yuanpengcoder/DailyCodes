@@ -27,10 +27,7 @@
    console.log(f.next());
     //每一个next对应一个yield,
    f.next();
-
-
    //不能使用箭头函数
-
    //demo2
    function    *demo2(){
        let a=yield '22';
@@ -49,7 +46,7 @@
     //混和promise,generator
     function pro(time,val){
         return new Promise((re,rj)=>{
-              setTimeout(() => {
+              setTimeout((Z) => {
                 console.log("执行"+val);
                 re(val);
                 // run.next();                
@@ -63,7 +60,6 @@
         let st1=yield pro(100,'吃饭')
         let st2=yield pro(200,'睡觉')
         let st3=yield pro(500,'洗澡')
-
     }
 
     // let fns=gen();

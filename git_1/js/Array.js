@@ -43,7 +43,7 @@ var rdr=reduceDemo.reduceRight(function (prev,cur,index,array) {
   var now=new Date();
   console.log(now);
   //如果创建特定得日期对象和时间，用Date.parse()和Date.UTC()
-//Date.parse()就相当于直接再在初始化Date()对象时直接传参是一样的
+//初始化Date()会模仿Date.parse()函数
   var pd=new Date("May 28,2004");
   var upd=new Date(Date.parse("May 28,2004"));
   console.log(pd);
@@ -51,5 +51,13 @@ var rdr=reduceDemo.reduceRight(function (prev,cur,index,array) {
 //日期溢出时，即日期时40之类的时候，浏览器会自动获取当前日期
 //Date.UTC(年份,月份(0,代表1月此时),日,时(计时方式时0-23),分,秒)
 //前两个参数时必选项,其他都有默认值
+// 同样的初始化Date()会模仿Date.UTC()函数
  var utc=new Date(Date.UTC(2005,0));
  console.log(utc); 
+//toString()和toLocalString()显示时不同，但是没有什么价值
+//valueOf()会自动返回毫秒数
+//比较大小时会调用valueOf的值
+
+//日期时间组件的方法
+
+

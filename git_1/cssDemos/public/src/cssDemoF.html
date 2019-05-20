@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<style>
+    html{
+        font-size: 16px;
+    }
+    #container{
+        width: 100vw;
+        height: 100vh;
+        top:0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    #content{
+        position: relative;
+
+        width: 80%;
+        border: 2px solid red;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        color: black;
+        margin: 0 auto;
+        height: 10rem;
+        z-index: 11;
+    }
+    .tuijian{
+        position: relative;
+
+        width: 28%;
+        height: 10rem;
+    }
+    .tuijian img{
+        width: 90%;
+        height: 90%;
+    }   
+    .tuijian img:hover{
+         -webkit-animation:move 0.1s linear; 
+         animation-fill-mode: forwards;
+        }
+    @-webkit-keyframes move {
+            from {margin-left: 0px;}
+            to {margin-left:5px;}
+        }
+    #tuijianList{
+        width: 68%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .tuijianLists{
+        width: 33%;
+        height: 50%;
+    }
+    .tuijianLists img{
+        width: 90%;
+        height: 90%;
+    }
+    #enters{
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+        opacity: 0.6;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    @media screen and (max-width:770px) and (min-width:300px){
+
+    }
+</style>
+<body>
+<div id="container" >
+   <div id="content">
+    <div class="tuijian" onclick="changeImg()">
+            <div id="enters"><a >前往查看</a></div>
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553937337402&di=4d31e13">
+    </div>
+    <div id="tuijianList">
+        
+        <div class="tuijianLists">        
+         </div>
+        <div class="tuijianLists">       
+        </div>
+        <div class="tuijianLists">       
+            </div>
+        <div class="tuijianLists">       
+                </div>
+    </div>
+  </div>
+  </div>
+<script>
+    function changeImg() { 
+        $.ajax({
+            url:'/',
+            method:'Get',
+            dataType:'text',
+            data:{},
+            success:(data)=>{
+                console.log(data)
+                document.getElementById('enters').innerHTML+=":"+data.most
+                alert(data)
+            }
+        })
+     }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+img{
+    display: block;
+    height: 300px;
+}
+</style>
+<body>
+    <div>
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+            <img src="" data-src="img/bg1.png" alt="图片">
+
+
+    </div>
+<script>
+  var imgs = document.querySelectorAll('img');
+  function getTop(e) { 
+    var t=e.offsetTop;
+    // console.log(e.offsetTop)
+
+    t+=e.offsetParent.offsetTop;
+    console.log(t)
+    return t;
+   }
+   function lazyLoad(imgs){
+    var H=document.documentElement.clientHeight;//可视区
+    console.log(H)
+    var S=document.body.scrollTop||document.documentElement.scrollTop;
+    console.log(S)
+    for(let i=0;i<imgs.length;i++){
+        console.log(H+S+'::');
+        if(H+S>getTop(imgs[i]))
+        {
+            imgs[i].src = imgs[i].getAttribute('data-src');
+
+        }
+    }
+   }
+   window.onload = window.onscroll = function () {
+            lazyLoad(imgs);
+    }
+</script>
+</body>
+</html>
