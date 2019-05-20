@@ -45,9 +45,9 @@ module.exports = {
         overlay: {
             errors: true//编译有错时直接在网页显示
         },
-        hot: true //热更新，随时更新，局部更新，不能跟chunkhash一起使用
+        hot: true ,//热更新，随时更新，局部更新，不能跟chunkhash一起使用
         // port:3000,//端口号
-        // host:'localhost',
+        host:'192.168.3.108',
         //不配置的话，会有一个默认的8080d端口
     },
     module: {
